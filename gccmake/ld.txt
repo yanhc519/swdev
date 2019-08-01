@@ -1,0 +1,9 @@
+GCC linker
+
+LD, https://ftp.gnu.org/old-gnu/Manuals/ld-2.9.1/html_mono/ld.html#TOC6
+Link script, 链接脚本，http://www.scoberlin.de/content/media/http/informatik/gcc_docs/ld_3.html
+
+
+-X--discard-locals
+
+　　Delete all temporary local symbols. For most targets, this is all local symbols whose names begin with `L'.
