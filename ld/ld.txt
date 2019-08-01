@@ -1,0 +1,12 @@
+LD, https://ftp.gnu.org/old-gnu/Manuals/ld-2.9.1/html_mono/ld.html#TOC6
+
+
+-X--discard-locals
+　　Delete all temporary local symbols. For most targets, this is all local symbols whose names begin with `L'.
+
+--start-group archives --end-group，archives代表的库列表会循环搜索直到没有未定义引用
+	The archives should be a list of archive files. They may be either explicit file names, or `-l' options. The specified archives are searched repeatedly until no new undefined references are created. Normally, an archive is searched only once in the order that it is specified on the command line. If a symbol in that archive is needed to resolve an undefined symbol referred to by an object in an archive that appears later on the command line, the linker would not be able to resolve that reference. By grouping the archives, they all be searched repeatedly until all possible references are resolved. Using this option has a significant performance cost. It is best to use it only when there are unavoidable circular references between two or more archives.
+	
+-N
+--omagic，据说可以让binaries更小
+	Set the text and data sections to be readable and writable. Also, do not page-align the data segment. If the output format supports Unix style magic numbers, mark the output as OMAGIC.

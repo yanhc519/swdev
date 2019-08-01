@@ -1,0 +1,4 @@
+Link script, 链接脚本，http://www.scoberlin.de/content/media/http/informatik/gcc_docs/ld_3.html
+
+位置计数器.
+	The special linker variable dot `.' always contains the current output location counter.
