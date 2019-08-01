@@ -1,0 +1,421 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0072)https://sourceware.org/binutils/docs/binutils/ar-cmdline.html#ar-cmdline -->
+<html><!-- Copyright (C) 1991-2019 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.3
+or any later version published by the Free Software Foundation;
+with no Invariant Sections, with no Front-Cover Texts, and with no
+Back-Cover Texts.  A copy of the license is included in the
+section entitled "GNU Free Documentation License".
+ --><!-- Created by GNU Texinfo 6.5, http://www.gnu.org/software/texinfo/ --><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>ar cmdline (GNU Binary Utilities)</title>
+
+<meta name="description" content="ar cmdline (GNU Binary Utilities)">
+<meta name="keywords" content="ar cmdline (GNU Binary Utilities)">
+<meta name="resource-type" content="document">
+<meta name="distribution" content="global">
+<meta name="Generator" content="makeinfo">
+<link href="https://sourceware.org/binutils/docs/binutils/index.html#Top" rel="start" title="Top">
+<link href="https://sourceware.org/binutils/docs/binutils/Binutils-Index.html#Binutils-Index" rel="index" title="Binutils Index">
+<link href="https://sourceware.org/binutils/docs/binutils/index.html#SEC_Contents" rel="contents" title="Table of Contents">
+<link href="https://sourceware.org/binutils/docs/binutils/ar.html#ar" rel="up" title="ar">
+<link href="https://sourceware.org/binutils/docs/binutils/ar-scripts.html#ar-scripts" rel="next" title="ar scripts">
+<link href="https://sourceware.org/binutils/docs/binutils/ar.html#ar" rel="prev" title="ar">
+<style type="text/css">
+<!--
+a.summary-letter {text-decoration: none}
+blockquote.indentedblock {margin-right: 0em}
+blockquote.smallindentedblock {margin-right: 0em; font-size: smaller}
+blockquote.smallquotation {font-size: smaller}
+div.display {margin-left: 3.2em}
+div.example {margin-left: 3.2em}
+div.lisp {margin-left: 3.2em}
+div.smalldisplay {margin-left: 3.2em}
+div.smallexample {margin-left: 3.2em}
+div.smalllisp {margin-left: 3.2em}
+kbd {font-style: oblique}
+pre.display {font-family: inherit}
+pre.format {font-family: inherit}
+pre.menu-comment {font-family: serif}
+pre.menu-preformatted {font-family: serif}
+pre.smalldisplay {font-family: inherit; font-size: smaller}
+pre.smallexample {font-size: smaller}
+pre.smallformat {font-family: inherit; font-size: smaller}
+pre.smalllisp {font-size: smaller}
+span.nolinebreak {white-space: nowrap}
+span.roman {font-family: initial; font-weight: normal}
+span.sansserif {font-family: sans-serif; font-weight: normal}
+ul.no-bullet {list-style: none}
+-->
+</style>
+
+
+</head>
+
+<body lang="en">
+<a name="ar-cmdline"></a>
+<div class="header">
+<p>
+Next: <a href="https://sourceware.org/binutils/docs/binutils/ar-scripts.html#ar-scripts" accesskey="n" rel="next">ar scripts</a>, Up: <a href="https://sourceware.org/binutils/docs/binutils/ar.html#ar" accesskey="u" rel="up">ar</a> &nbsp; [<a href="https://sourceware.org/binutils/docs/binutils/index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="https://sourceware.org/binutils/docs/binutils/Binutils-Index.html#Binutils-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+<hr>
+<a name="Controlling-ar-on-the-Command-Line"></a>
+<h3 class="section">1.1 Controlling <code>ar</code> on the Command Line</h3>
+
+<div class="smallexample">
+<pre class="smallexample">ar [<samp>-X32_64</samp>] [<samp>-</samp>]<var>p</var>[<var>mod</var>] [<samp>--plugin</samp> <var>name</var>] [<samp>--target</samp> <var>bfdname</var>] [<var>relpos</var>] [<var>count</var>] <var>archive</var> [<var>member</var>…]
+</pre></div>
+
+<a name="index-Unix-compatibility_002c-ar"></a>
+<p>When you use <code>ar</code> in the Unix style, <code>ar</code> insists on at least two
+arguments to execute: one keyletter specifying the <em>operation</em>
+(optionally accompanied by other keyletters specifying
+<em>modifiers</em>), and the archive name to act on.
+</p>
+<p>Most operations can also accept further <var>member</var> arguments,
+specifying particular files to operate on.
+</p>
+
+<p><small>GNU</small> <code>ar</code> allows you to mix the operation code <var>p</var> and modifier
+flags <var>mod</var> in any order, within the first command-line argument.
+</p>
+<p>If you wish, you may begin the first command-line argument with a
+dash.
+</p>
+<a name="index-operations-on-archive"></a>
+<p>The <var>p</var> keyletter specifies what operation to execute; it may be
+any of the following, but you must specify only one of them:
+</p>
+<dl compact="compact">
+<dt>‘<samp>d</samp>’</dt>
+<dd><a name="index-deleting-from-archive"></a>
+<p><em>Delete</em> modules from the archive.  Specify the names of modules to
+be deleted as <var>member</var>…; the archive is untouched if you
+specify no files to delete.
+</p>
+<p>If you specify the ‘<samp>v</samp>’ modifier, <code>ar</code> lists each module
+as it is deleted.
+</p>
+</dd>
+<dt>‘<samp>m</samp>’</dt>
+<dd><a name="index-moving-in-archive"></a>
+<p>Use this operation to <em>move</em> members in an archive.
+</p>
+<p>The ordering of members in an archive can make a difference in how
+programs are linked using the library, if a symbol is defined in more
+than one member.
+</p>
+<p>If no modifiers are used with <code>m</code>, any members you name in the
+<var>member</var> arguments are moved to the <em>end</em> of the archive;
+you can use the ‘<samp>a</samp>’, ‘<samp>b</samp>’, or ‘<samp>i</samp>’ modifiers to move them to a
+specified place instead.
+</p>
+</dd>
+<dt>‘<samp>p</samp>’</dt>
+<dd><a name="index-printing-from-archive"></a>
+<p><em>Print</em> the specified members of the archive, to the standard
+output file.  If the ‘<samp>v</samp>’ modifier is specified, show the member
+name before copying its contents to standard output.
+</p>
+<p>If you specify no <var>member</var> arguments, all the files in the archive are
+printed.
+</p>
+</dd>
+<dt>‘<samp>q</samp>’</dt>
+<dd><a name="index-quick-append-to-archive"></a>
+<p><em>Quick append</em>; Historically, add the files <var>member</var>… to the end of
+<var>archive</var>, without checking for replacement.
+</p>
+<p>The modifiers ‘<samp>a</samp>’, ‘<samp>b</samp>’, and ‘<samp>i</samp>’ do <em>not</em> affect this
+operation; new members are always placed at the end of the archive.
+</p>
+<p>The modifier ‘<samp>v</samp>’ makes <code>ar</code> list each file as it is appended.
+</p>
+<p>Since the point of this operation is speed, implementations of
+<code>ar</code> have the option of not updating the archive’s symbol
+table if one exists.  Too many different systems however assume that
+symbol tables are always up-to-date, so <small>GNU</small> <code>ar</code> will
+rebuild the table even with a quick append.
+</p>
+<p>Note - <small>GNU</small> <code>ar</code> treats the command ‘<samp>qs</samp>’ as a
+synonym for ‘<samp>r</samp>’ - replacing already existing files in the
+archive and appending new ones at the end.
+</p>
+</dd>
+<dt>‘<samp>r</samp>’</dt>
+<dd><a name="index-replacement-in-archive"></a>
+<p>Insert the files <var>member</var>… into <var>archive</var> (with
+<em>replacement</em>). This operation differs from ‘<samp>q</samp>’ in that any
+previously existing members are deleted if their names match those being
+added.
+</p>
+<p>If one of the files named in <var>member</var>… does not exist, <code>ar</code>
+displays an error message, and leaves undisturbed any existing members
+of the archive matching that name.
+</p>
+<p>By default, new members are added at the end of the file; but you may
+use one of the modifiers ‘<samp>a</samp>’, ‘<samp>b</samp>’, or ‘<samp>i</samp>’ to request
+placement relative to some existing member.
+</p>
+<p>The modifier ‘<samp>v</samp>’ used with this operation elicits a line of
+output for each file inserted, along with one of the letters ‘<samp>a</samp>’ or
+‘<samp>r</samp>’ to indicate whether the file was appended (no old member
+deleted) or replaced.
+</p>
+</dd>
+<dt>‘<samp>s</samp>’</dt>
+<dd><a name="index-ranlib"></a>
+<p>Add an index to the archive, or update it if it already exists.  Note
+this command is an exception to the rule that there can only be one
+command letter, as it is possible to use it as either a command or a
+modifier.  In either case it does the same thing.
+</p>
+</dd>
+<dt>‘<samp>t</samp>’</dt>
+<dd><a name="index-contents-of-archive"></a>
+<p>Display a <em>table</em> listing the contents of <var>archive</var>, or those
+of the files listed in <var>member</var>… that are present in the
+archive.  Normally only the member name is shown, but if the modifier
+‘<samp>O</samp>’ is specified, then the corresponding offset of the member is also
+displayed.  Finally, in order to see the modes (permissions), timestamp,
+owner, group, and size the ‘<samp>v</samp>’ modifier should be included.
+</p>
+<p>If you do not specify a <var>member</var>, all files in the archive
+are listed.
+</p>
+<a name="index-repeated-names-in-archive"></a>
+<a name="index-name-duplication-in-archive"></a>
+<p>If there is more than one file with the same name (say, ‘<samp>fie</samp>’) in
+an archive (say ‘<samp>b.a</samp>’), ‘<samp>ar t b.a fie</samp>’ lists only the
+first instance; to see them all, you must ask for a complete
+listing—in our example, ‘<samp>ar t b.a</samp>’.
+</p>
+</dd>
+<dt>‘<samp>x</samp>’</dt>
+<dd><a name="index-extract-from-archive"></a>
+<p><em>Extract</em> members (named <var>member</var>) from the archive.  You can
+use the ‘<samp>v</samp>’ modifier with this operation, to request that
+<code>ar</code> list each name as it extracts it.
+</p>
+<p>If you do not specify a <var>member</var>, all files in the archive
+are extracted.
+</p>
+<p>Files cannot be extracted from a thin archive.
+</p></dd>
+</dl>
+
+<p>A number of modifiers (<var>mod</var>) may immediately follow the <var>p</var>
+keyletter, to specify variations on an operation’s behavior:
+</p>
+<dl compact="compact">
+<dt>‘<samp>a</samp>’</dt>
+<dd><a name="index-relative-placement-in-archive"></a>
+<p>Add new files <em>after</em> an existing member of the
+archive.  If you use the modifier ‘<samp>a</samp>’, the name of an existing archive
+member must be present as the <var>relpos</var> argument, before the
+<var>archive</var> specification.
+</p>
+</dd>
+<dt>‘<samp>b</samp>’</dt>
+<dd><p>Add new files <em>before</em> an existing member of the
+archive.  If you use the modifier ‘<samp>b</samp>’, the name of an existing archive
+member must be present as the <var>relpos</var> argument, before the
+<var>archive</var> specification.  (same as ‘<samp>i</samp>’).
+</p>
+</dd>
+<dt>‘<samp>c</samp>’</dt>
+<dd><a name="index-creating-archives"></a>
+<p><em>Create</em> the archive.  The specified <var>archive</var> is always
+created if it did not exist, when you request an update.  But a warning is
+issued unless you specify in advance that you expect to create it, by
+using this modifier.
+</p>
+</dd>
+<dt>‘<samp>D</samp>’</dt>
+<dd><a name="index-deterministic-archives"></a>
+<a name="index-_002d_002denable_002ddeterministic_002darchives"></a>
+<p>Operate in <em>deterministic</em> mode.  When adding files and the archive
+index use zero for UIDs, GIDs, timestamps, and use consistent file modes
+for all files.  When this option is used, if <code>ar</code> is used with
+identical options and identical input files, multiple runs will create
+identical output files regardless of the input files’ owners, groups,
+file modes, or modification times.
+</p>
+<p>If <samp>binutils</samp> was configured with
+<samp>--enable-deterministic-archives</samp>, then this mode is on by default.
+It can be disabled with the ‘<samp>U</samp>’ modifier, below.
+</p>
+</dd>
+<dt>‘<samp>f</samp>’</dt>
+<dd><p>Truncate names in the archive.  <small>GNU</small> <code>ar</code> will normally permit file
+names of any length.  This will cause it to create archives which are
+not compatible with the native <code>ar</code> program on some systems.  If
+this is a concern, the ‘<samp>f</samp>’ modifier may be used to truncate file
+names when putting them in the archive.
+</p>
+</dd>
+<dt>‘<samp>i</samp>’</dt>
+<dd><p>Insert new files <em>before</em> an existing member of the
+archive.  If you use the modifier ‘<samp>i</samp>’, the name of an existing archive
+member must be present as the <var>relpos</var> argument, before the
+<var>archive</var> specification.  (same as ‘<samp>b</samp>’).
+</p>
+</dd>
+<dt>‘<samp>l</samp>’</dt>
+<dd><p>This modifier is accepted but not used.
+</p>
+</dd>
+<dt>‘<samp>N</samp>’</dt>
+<dd><p>Uses the <var>count</var> parameter.  This is used if there are multiple
+entries in the archive with the same name.  Extract or delete instance
+<var>count</var> of the given name from the archive.
+</p>
+</dd>
+<dt>‘<samp>o</samp>’</dt>
+<dd><a name="index-dates-in-archive"></a>
+<p>Preserve the <em>original</em> dates of members when extracting them.  If
+you do not specify this modifier, files extracted from the archive
+are stamped with the time of extraction.
+</p>
+</dd>
+<dt>‘<samp>O</samp>’</dt>
+<dd><a name="index-offsets-of-files"></a>
+<p>Display member offsets inside the archive. Use together with the ‘<samp>t</samp>’
+option.
+</p>
+</dd>
+<dt>‘<samp>P</samp>’</dt>
+<dd><p>Use the full path name when matching names in the archive.  <small>GNU</small>
+<code>ar</code> can not create an archive with a full path name (such archives
+are not POSIX complaint), but other archive creators can.  This option
+will cause <small>GNU</small> <code>ar</code> to match file names using a complete path
+name, which can be convenient when extracting a single file from an
+archive created by another tool.
+</p>
+</dd>
+<dt>‘<samp>s</samp>’</dt>
+<dd><a name="index-writing-archive-index"></a>
+<p>Write an object-file index into the archive, or update an existing one,
+even if no other change is made to the archive.  You may use this modifier
+flag either with any operation, or alone.  Running ‘<samp>ar s</samp>’ on an
+archive is equivalent to running ‘<samp>ranlib</samp>’ on it.
+</p>
+</dd>
+<dt>‘<samp>S</samp>’</dt>
+<dd><a name="index-not-writing-archive-index"></a>
+<p>Do not generate an archive symbol table.  This can speed up building a
+large library in several steps.  The resulting archive can not be used
+with the linker.  In order to build a symbol table, you must omit the
+‘<samp>S</samp>’ modifier on the last execution of ‘<samp>ar</samp>’, or you must run
+‘<samp>ranlib</samp>’ on the archive.
+</p>
+</dd>
+<dt>‘<samp>T</samp>’</dt>
+<dd><a name="index-creating-thin-archive"></a>
+<p>Make the specified <var>archive</var> a <em>thin</em> archive.  If it already
+exists and is a regular archive, the existing members must be present
+in the same directory as <var>archive</var>.
+</p>
+</dd>
+<dt>‘<samp>u</samp>’</dt>
+<dd><a name="index-updating-an-archive"></a>
+<p>Normally, ‘<samp>ar r</samp>’… inserts all files
+listed into the archive.  If you would like to insert <em>only</em> those
+of the files you list that are newer than existing members of the same
+names, use this modifier.  The ‘<samp>u</samp>’ modifier is allowed only for the
+operation ‘<samp>r</samp>’ (replace).  In particular, the combination ‘<samp>qu</samp>’ is
+not allowed, since checking the timestamps would lose any speed
+advantage from the operation ‘<samp>q</samp>’.
+</p>
+</dd>
+<dt>‘<samp>U</samp>’</dt>
+<dd><a name="index-deterministic-archives-1"></a>
+<a name="index-_002d_002denable_002ddeterministic_002darchives-1"></a>
+<p>Do <em>not</em> operate in <em>deterministic</em> mode.  This is the inverse
+of the ‘<samp>D</samp>’ modifier, above: added files and the archive index will
+get their actual UID, GID, timestamp, and file mode values.
+</p>
+<p>This is the default unless <samp>binutils</samp> was configured with
+<samp>--enable-deterministic-archives</samp>.
+</p>
+</dd>
+<dt>‘<samp>v</samp>’</dt>
+<dd><p>This modifier requests the <em>verbose</em> version of an operation.  Many
+operations display additional information, such as filenames processed,
+when the modifier ‘<samp>v</samp>’ is appended.
+</p>
+</dd>
+<dt>‘<samp>V</samp>’</dt>
+<dd><p>This modifier shows the version number of <code>ar</code>.
+</p></dd>
+</dl>
+
+<p>The <code>ar</code> program also supports some command-line options which
+are neither modifiers nor actions, but which do change its behaviour
+in specific ways:
+</p>
+<dl compact="compact">
+<dt>‘<samp>--help</samp>’</dt>
+<dd><p>Displays the list of command-line options supported by <code>ar</code>
+and then exits.
+</p>
+</dd>
+<dt>‘<samp>--version</samp>’</dt>
+<dd><p>Displays the version information of <code>ar</code> and then exits.
+</p>
+</dd>
+<dt>‘<samp>-X32_64</samp>’</dt>
+<dd><p><code>ar</code> ignores an initial option spelt ‘<samp>-X32_64</samp>’, for
+compatibility with AIX.  The behaviour produced by this option is the
+default for <small>GNU</small> <code>ar</code>.  <code>ar</code> does not support any
+of the other ‘<samp>-X</samp>’ options; in particular, it does not support
+<samp>-X32</samp> which is the default for AIX <code>ar</code>.
+</p>
+</dd>
+<dt>‘<samp>--plugin <var>name</var></samp>’</dt>
+<dd><a name="index-plugins"></a>
+<p>The optional command-line switch <samp>--plugin <var>name</var></samp> causes
+<code>ar</code> to load the plugin called <var>name</var> which adds support
+for more file formats, including object files with link-time
+optimization information.
+</p>
+<p>This option is only available if the toolchain has been built with
+plugin support enabled.
+</p>
+<p>If <samp>--plugin</samp> is not provided, but plugin support has been
+enabled then <code>ar</code> iterates over the files in
+<samp>${libdir}/bfd-plugins</samp> in alphabetic order and the first
+plugin that claims the object in question is used.
+</p>
+<p>Please note that this plugin search directory is <em>not</em> the one
+used by <code>ld</code>’s <samp>-plugin</samp> option.  In order to make
+<code>ar</code> use the  linker plugin it must be copied into the
+<samp>${libdir}/bfd-plugins</samp> directory.  For GCC based compilations
+the linker plugin is called <samp>liblto_plugin.so.0.0.0</samp>.  For Clang
+based compilations it is called <samp>LLVMgold.so</samp>.  The GCC plugin
+is always backwards compatible with earlier versions, so it is
+sufficient to just copy the newest one.
+</p>
+</dd>
+<dt>‘<samp>--target <var>target</var></samp>’</dt>
+<dd><p>The optional command-line switch <samp>--target <var>bfdname</var></samp>
+specifies that the archive members are in an object code format
+different from your system’s default format.  See
+See <a href="https://sourceware.org/binutils/docs/binutils/Target-Selection.html#Target-Selection">Target Selection</a>, for more information.
+</p></dd>
+</dl>
+
+
+<hr>
+<div class="header">
+<p>
+Next: <a href="https://sourceware.org/binutils/docs/binutils/ar-scripts.html#ar-scripts" accesskey="n" rel="next">ar scripts</a>, Up: <a href="https://sourceware.org/binutils/docs/binutils/ar.html#ar" accesskey="u" rel="up">ar</a> &nbsp; [<a href="https://sourceware.org/binutils/docs/binutils/index.html#SEC_Contents" title="Table of contents" rel="contents">Contents</a>][<a href="https://sourceware.org/binutils/docs/binutils/Binutils-Index.html#Binutils-Index" title="Index" rel="index">Index</a>]</p>
+</div>
+
+
+
+
+
+<audio controls="controls" style="display: none;"></audio></body><style type="text/css">#yddContainer{display:block;font-family:Microsoft YaHei;position:relative;width:100%;height:100%;top:-4px;left:-4px;font-size:12px;border:1px solid}#yddTop{display:block;height:22px}#yddTopBorderlr{display:block;position:static;height:17px;padding:2px 28px;line-height:17px;font-size:12px;color:#5079bb;font-weight:bold;border-style:none solid;border-width:1px}#yddTopBorderlr .ydd-sp{position:absolute;top:2px;height:0;overflow:hidden}.ydd-icon{left:5px;width:17px;padding:0px 0px 0px 0px;padding-top:17px;background-position:-16px -44px}.ydd-close{right:5px;width:16px;padding-top:16px;background-position:left -44px}#yddKeyTitle{float:left;text-decoration:none}#yddMiddle{display:block;margin-bottom:10px}.ydd-tabs{display:block;margin:5px 0;padding:0 5px;height:18px;border-bottom:1px solid}.ydd-tab{display:block;float:left;height:18px;margin:0 5px -1px 0;padding:0 4px;line-height:18px;border:1px solid;border-bottom:none}.ydd-trans-container{display:block;line-height:160%}.ydd-trans-container a{text-decoration:none;}#yddBottom{position:absolute;bottom:0;left:0;width:100%;height:22px;line-height:22px;overflow:hidden;background-position:left -22px}.ydd-padding010{padding:0 10px}#yddWrapper{color:#252525;z-index:10001;background:url(chrome-extension://eopjamdnofihpioajgfdikhhbobonhbb/ab20.png);}#yddContainer{background:#fff;border-color:#4b7598}#yddTopBorderlr{border-color:#f0f8fc}#yddWrapper .ydd-sp{background-image:url(chrome-extension://eopjamdnofihpioajgfdikhhbobonhbb/ydd-sprite.png)}#yddWrapper a,#yddWrapper a:hover,#yddWrapper a:visited{color:#50799b}#yddWrapper .ydd-tabs{color:#959595}.ydd-tabs,.ydd-tab{background:#fff;border-color:#d5e7f3}#yddBottom{color:#363636}#yddWrapper{min-width:250px;max-width:400px;}</style></html>

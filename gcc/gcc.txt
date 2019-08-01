@@ -1,0 +1,29 @@
+
+
+-fno-builtin
+	Don't recognize builtin functions that do not begin with `__builtin_' as prefix. Currently, the functions affected include abort, abs, alloca, cos, exit, fabs, ffs, labs, memcmp, memcpy, sin, sqrt, strcmp, strcpy, and strlen.
+	GCC normally generates special code to handle certain builtin functions more efficiently; for instance, calls to alloca may become single instructions that adjust the stack directly, and calls to memcpy may become inline copy loops. The resulting code is often both smaller and faster, but since the function calls no longer appear as such, you cannot set a breakpoint on those calls, nor can you change the behavior of the functions by linking with a different library.
+
+	The `-ansi' option prevents alloca and ffs from being builtin functions, since these functions do not have an ANSI standard meaning.
+	
+
+-Bprefix，文件搜索目录的前缀
+	This option specifies where to find the executables, libraries, include files, and data files of the compiler itself.
+	The compiler driver program runs one or more of the subprograms `cpp', `cc1', `as' and `ld'. It tries prefix as a prefix for each program it tries to run, both with and without `machine/version/' (see section 2.13 Specifying Target Machine and Compiler Version).
+
+	For each subprogram to be run, the compiler driver first tries the `-B' prefix, if any. If that name is not found, or if `-B' was not specified, the driver tries two standard prefixes, which are `/usr/lib/gcc/' and `/usr/local/lib/gcc-lib/'. If neither of those results in a file name that is found, the unmodified program name is searched for using the directories specified in your `PATH' environment variable.
+
+	`-B' prefixes that effectively specify directory names also apply to libraries in the linker, because the compiler translates these options into `-L' options for the linker. They also apply to includes files in the preprocessor, because the compiler translates these options into `-isystem' options for the preprocessor. In this case, the compiler appends `include' to the prefix.
+
+	The run-time support file `libgcc.a' can also be searched for using the `-B' prefix, if needed. If it is not found there, the two standard prefixes above are tried, and that is all. The file is left out of the link if it is not found by those means.
+
+	Another way to specify a prefix much like the `-B' prefix is to use the environment variable GCC_EXEC_PREFIX. See section 2.16 Environment Variables Affecting GCC.
+	
+
+-nostdinc，不要搜索系统标准头文件目录
+	Do not search the standard system directories for header files. Only the directories you have specified with `-I' options (and the current directory, if appropriate) are searched. See section 2.12 Options for Directory Search, for information on `-I'.
+	By using both `-nostdinc' and `-I-', you can limit the include-file search path to only those directories you specify explicitly.
+	
+
+-Wall，输出所有警告
+	All of the above `-W' options combined. This enables all the warnings about constructions that some users consider questionable, and that are easy to avoid (or modify to prevent the warning), even in conjunction with macros.
