@@ -10,3 +10,14 @@ LD, https://ftp.gnu.org/old-gnu/Manuals/ld-2.9.1/html_mono/ld.html#TOC6
 -N
 --omagic，据说可以让binaries更小
 	Set the text and data sections to be readable and writable. Also, do not page-align the data segment. If the output format supports Unix style magic numbers, mark the output as OMAGIC.
+	
+
+-e entry
+--entry=entry
+	Use entry as the explicit symbol for beginning execution of your program, rather than the default entry point. See section The Entry Point, for a discussion of defaults and other ways of specifying the entry point.
+	
+
+-Tbss org
+-Tdata org
+-Ttext org
+	Use org as the starting address for--respectively--the bss, data, or the text segment of the output file. org must be a single hexadecimal integer; for compatibility with other linkers, you may omit the leading `0x' usually associated with hexadecimal values.

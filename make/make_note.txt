@@ -1,0 +1,9 @@
+$@，自动变量，规则的目标的文件名
+	The file name of the target of the rule. If the target is an archive member, then ‘$@’ is the name of the archive file. In a pattern rule that has multiple targets (see Introduction to Pattern Rules), ‘$@’ is the name of whichever target caused the rule’s recipe to be run.
+	
+	
+‘-C dir’
+‘--directory=dir’
+	Change to directory dir before reading the makefiles. If multiple ‘-C’ options are specified, each is interpreted relative to the previous one: ‘-C / -C etc’ is equivalent to ‘-C /etc’. This is typically used with recursive invocations of make (see Recursive Use of make).
+	
+	
